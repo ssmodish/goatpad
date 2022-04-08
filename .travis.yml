@@ -1,0 +1,4 @@
+languge: node_js
+node_js:
+  - '16.13.0'
+script: npm install && npm run build
