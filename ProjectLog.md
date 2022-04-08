@@ -81,3 +81,4 @@ Many attempts for PR preview deployment on firebase.
 
 Create develop branch on grammerhub repo and set it as the default branch for PR's
 Add GitHub action to deploy a preview on accepted PR to develop branch
+Add `.travis.yml` and setup a build workflow
