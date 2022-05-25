@@ -11,11 +11,19 @@ import Posts from './features/posts'
 import FilteredPosts from './features/posts/components/FilteredPosts'
 import About from './features/about/About'
 import Profile from './features/profile/Profile'
+import Layout from './components/Layout'
+import Topics from './components/Topics'
+import PostForm from './features/posts/components/PostForm'
+
+import { useAuthContext } from './hooks/useAuthContext'
 
 function App() {
+  const { user } = useAuthContext()
+
   return (
-    <>
+    <Layout>
       <Navbar />
+      <Topics />
 
       <Routes>
         <Route path='/' element={<Posts />} />
@@ -27,8 +35,9 @@ function App() {
         <Route path='/about' element={<About />} />
         <Route path='/profile' element={<Profile />} />
       </Routes>
+      {user ? <PostForm /> : <div>Need a User</div>}
       <Footer />
-    </>
+    </Layout>
   )
 }
 

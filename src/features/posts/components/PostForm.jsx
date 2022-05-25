@@ -1,4 +1,6 @@
 import React from 'react'
+import styled from 'styled-components'
+
 import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -8,6 +10,16 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../config/firebase.ts'
 import { useAuthContext } from '../../../hooks/useAuthContext'
 import { Stack } from '../../../components/styles/Stack.styled'
+
+const PostFormContainer = styled.div`
+  padding: 30px;
+  border-left: 1px solid #ddd;
+  width: 100%;
+
+  @media screen and (max-width: 1200px) {
+    padding-left: 15px;
+  }
+`
 
 const PostForm = () => {
   const {
@@ -46,26 +58,28 @@ const PostForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack gutter='lg'>
-        <Stack gutter='sm'>
-          <label htmlFor='title'>Title</label>
-          <input type='text' name='title' {...register('title')} placeholder='Enter a title' />
-          <p>{errors.title?.message}</p>
+    <PostFormContainer>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Stack gutter='lg'>
+          <Stack gutter='sm'>
+            <label htmlFor='title'>Title</label>
+            <input type='text' name='title' {...register('title')} placeholder='Enter a title' />
+            <p>{errors.title?.message}</p>
+          </Stack>
+          <Stack gutter='sm'>
+            <label htmlFor='title'>Topics</label>
+            <input type='text' name='topics' {...register('topics')} placeholder='Enter topics separated by commas' />
+            <p>{errors.title?.message}</p>
+          </Stack>
+          <Stack gutter='sm'>
+            <label htmlFor='postBody'>Body</label>
+            <textarea name='postBody' {...register('postBody')} placeholder='Enter your post' rows='6' />
+            <p>{errors.postBody?.message}</p>
+          </Stack>
+          <button type='submit'>Submit</button>
         </Stack>
-        <Stack gutter='sm'>
-          <label htmlFor='title'>Topics</label>
-          <input type='text' name='topics' {...register('topics')} placeholder='Enter topics separated by commas' />
-          <p>{errors.title?.message}</p>
-        </Stack>
-        <Stack gutter='sm'>
-          <label htmlFor='postBody'>Body</label>
-          <textarea name='postBody' {...register('postBody')} placeholder='Enter your post' rows='6' />
-          <p>{errors.postBody?.message}</p>
-        </Stack>
-        <button type='submit'>Submit</button>
-      </Stack>
-    </form>
+      </form>
+    </PostFormContainer>
   )
 }
 
