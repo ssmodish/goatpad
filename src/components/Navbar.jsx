@@ -9,9 +9,10 @@ const NavbarContainer = styled.div`
   width: 100vw;
   border-bottom: 1px solid #ddd;
   display: grid;
-  grid-template-columns: 1fr 2fr 2fr 2fr;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
   grid-gap: 30px;
   justify-content: space-around;
+  background-color: #fff;
 `
 
 const AppTitle = styled.h1`
@@ -20,7 +21,7 @@ const AppTitle = styled.h1`
   padding: 10px;
 
   @media screen and (max-width: 1200px) {
-    grid-column-start: 1;
+    grid-column: 1 / span 2;
     padding: 10px 30px;
   }
 `
