@@ -2,14 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 
 const StyledFooter = styled.footer`
-  height: 34px;
-  width: 100vw;
-  background-color: #ccc;
-  margin-top: 0px;
-  padding: 5px;
-  margin-bottom: 20px;
+  grid-column: span 3;
   display: flex;
   justify-content: center;
+  padding: 30px;
+  border-top: 1px solid #ddd;
 `
 
 function Footer() {
@@ -17,7 +14,7 @@ function Footer() {
 
   return (
     <StyledFooter>
-      <div>Copyright {footerYear}</div>
+      <div>A Grammerhub Creation - {footerYear}</div>
     </StyledFooter>
   )
 }

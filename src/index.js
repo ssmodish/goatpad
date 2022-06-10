@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
 import { AuthContextProvider } from './stores/AuthContext'
-import { PostContextProvider } from './stores/PostContext'
+import { PostContextProvider } from './stores/Posts/PostContext'
 
 import './index.css'
 
