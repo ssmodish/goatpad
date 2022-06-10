@@ -5,26 +5,38 @@ import { useLogout } from '../hooks/useLogout'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const NavbarContainer = styled.div`
-  height: 34px;
+  grid-column: span 3;
   width: 100vw;
-  background-color: #ccc;
-  margin-top: 0px;
-  padding: 5px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
+  border-bottom: 1px solid #ddd;
+  display: grid;
+  grid-template-columns: 1fr 2fr 2fr 1fr;
+  grid-gap: 30px;
+  justify-content: space-around;
+  background-color: #fff;
 `
 
 const AppTitle = styled.h1`
-  font-size: 20px;
-  margin-top: 0px;
+  grid-column: 2;
+  font-size: 2rem;
+  padding: 10px;
+
+  @media screen and (max-width: 1200px) {
+    grid-column: 1 / span 2;
+    padding: 10px 30px;
+  }
 `
 
 const NavbarButtonContainer = styled.div`
-  width: 30%;
+  grid-column: 3;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
+  font-size: 1.25rem;
+
+  @media screen and (max-width: 1200px) {
+    grid-column: 3 / span 2;
+    padding-right: 30px;
+  }
 `
 
 const Navbar = () => {
@@ -33,28 +45,28 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <Link to='/'>
-        <AppTitle>Goatpad</AppTitle>
-      </Link>
+      <AppTitle>
+        <Link to="/">Goatpad</Link>
+      </AppTitle>
       <NavbarButtonContainer>
-        <Link to='/about'>
+        <Link to="/about">
           <p>About</p>
         </Link>
         {!user ? (
           <>
-            <Link to='/signup'>
+            <Link to="/signup">
               <p>Signup</p>
             </Link>
-            <Link to='/login'>
+            <Link to="/login">
               <p>Login</p>
             </Link>
           </>
         ) : (
           <>
-            <Link to='/profile'>
+            <Link to="/profile">
               <p>Profile</p>
             </Link>
-            <Link to='/'>
+            <Link to="/">
               <p onClick={logout}>Logout</p>
             </Link>
           </>

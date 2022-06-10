@@ -9,9 +9,9 @@ const PostList = () => {
   const { documents } = useCollection('posts', null, ['timestamp', 'desc'])
 
   return (
-    <Stack gutter='lg'>
-      <h2>PostList</h2>
-      {documents && documents.map((post) => <Post postData={post} key={post.id} />)}
+    <Stack gutter="lg">
+      {documents &&
+        documents.map((post) => <Post postData={post} key={post.id} />)}
     </Stack>
   )
 }
