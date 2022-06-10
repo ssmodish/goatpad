@@ -11,7 +11,7 @@ const Post = ({ postData }) => {
   const postedAt = timestamp?.toDate().toString() || null
 
   return (
-    <Stack gutter='xs'>
+    <Stack gutter="xs">
       <PostCard>
         <h3>{title}</h3>
         <p>{post || postBody}</p>

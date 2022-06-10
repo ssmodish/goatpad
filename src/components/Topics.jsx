@@ -1,5 +1,7 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import { useCollection } from '../hooks/useCollection'
 
 const TopicsContainer = styled.div`
   grid-column: span 1;
@@ -14,7 +16,21 @@ const TopicsContainer = styled.div`
 `
 
 const Topics = () => {
-  return <TopicsContainer>Recent Topics</TopicsContainer>
+  const { documents } = useCollection('topics', null, ['timestamp', 'desc'])
+  const topics = documents?.map((topic) => topic.topic)
+
+  const navigate = useNavigate()
+
+  return (
+    <TopicsContainer>
+      {topics &&
+        topics.map((topic) => (
+          <p key={topic} onClick={() => navigate(`topic/${topic}`)}>
+            {topic}
+          </p>
+        ))}
+    </TopicsContainer>
+  )
 }
 
 export default Topics

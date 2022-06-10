@@ -46,27 +46,27 @@ const Navbar = () => {
   return (
     <NavbarContainer>
       <AppTitle>
-        <Link to='/'>Goatpad</Link>
+        <Link to="/">Goatpad</Link>
       </AppTitle>
       <NavbarButtonContainer>
-        <Link to='/about'>
+        <Link to="/about">
           <p>About</p>
         </Link>
         {!user ? (
           <>
-            <Link to='/signup'>
+            <Link to="/signup">
               <p>Signup</p>
             </Link>
-            <Link to='/login'>
+            <Link to="/login">
               <p>Login</p>
             </Link>
           </>
         ) : (
           <>
-            <Link to='/profile'>
+            <Link to="/profile">
               <p>Profile</p>
             </Link>
-            <Link to='/'>
+            <Link to="/">
               <p onClick={logout}>Logout</p>
             </Link>
           </>

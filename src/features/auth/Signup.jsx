@@ -36,36 +36,56 @@ function Signup() {
         onSubmit={handleSubmit((data) => {
           handleSignUp(data)
         })}
-        className='signUpForm'
+        className="signUpForm"
       >
-        <div className='form-group'>
-          <label htmlFor='displayName'>Username</label>
-          <input type='text' name='displayName' {...register('displayName')} placeholder='Username' />
+        <div className="form-group">
+          <label htmlFor="displayName">Username</label>
+          <input
+            type="text"
+            name="displayName"
+            {...register('displayName')}
+            placeholder="Username"
+          />
           <p>{errors.displayName?.message}</p>
         </div>
-        <div className='form-group'>
-          <label htmlFor='email'>Email</label>
-          <input type='email' name='email' {...register('email')} placeholder='Email' />
+        <div className="form-group">
+          <label htmlFor="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            {...register('email')}
+            placeholder="Email"
+          />
           <p>{errors.email?.message}</p>
         </div>
-        <div className='form-group'>
-          <label htmlFor='password'>Password</label>
-          <input type='password' name='password' {...register('password')} placeholder='Password' />
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            name="password"
+            {...register('password')}
+            placeholder="Password"
+          />
           <p>{errors.password?.message}</p>
         </div>
-        <div className='form-group'>
-          <label htmlFor='password2'>Confirm Password</label>
-          <input type='password' name='password2' {...register('password2')} placeholder='Confirm Password' />
+        <div className="form-group">
+          <label htmlFor="password2">Confirm Password</label>
+          <input
+            type="password"
+            name="password2"
+            {...register('password2')}
+            placeholder="Confirm Password"
+          />
           <p>{errors.password2?.message}</p>
         </div>
-        <div className='form-group'>
-          <button type='submit'>Register</button>
+        <div className="form-group">
+          <button type="submit">Register</button>
         </div>
       </form>
       {error && <p>{error}</p>}
       <div>
         <p>Already have an account?</p>
-        <Link to='/login'>Login!</Link>
+        <Link to="/login">Login!</Link>
       </div>
     </>
   )

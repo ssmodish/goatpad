@@ -9,6 +9,7 @@ import { postFormSchema } from './postFormSchema'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../config/firebase.ts'
 import { useAuthContext } from '../../../hooks/useAuthContext'
+import { useCollection } from '../../../hooks/useCollection'
 import { Stack } from '../../../components/styles/Stack.styled'
 
 const PostFormContainer = styled.div`
@@ -49,6 +50,16 @@ const PostForm = () => {
         timestamp: serverTimestamp(),
       })
       console.log('Document written with ID: ', docRef.id)
+
+      const { topics } = await useCollection('topics')
+
+      console.log(topics)
+
+      // const topicRef = await addDoc(collection(db, 'topics'), {
+      //   ...data,
+      //   allTopics: { ...topics, ...newTopics },
+      // })
+
       e.target.reset()
     } catch (err) {
       console.error('Error adding document: ', err)
@@ -60,23 +71,38 @@ const PostForm = () => {
   return (
     <PostFormContainer>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack gutter='lg'>
-          <Stack gutter='sm'>
-            <label htmlFor='title'>Title</label>
-            <input type='text' name='title' {...register('title')} placeholder='Enter a title' />
+        <Stack gutter="lg">
+          <Stack gutter="sm">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              name="title"
+              {...register('title')}
+              placeholder="Enter a title"
+            />
             <p>{errors.title?.message}</p>
           </Stack>
-          <Stack gutter='sm'>
-            <label htmlFor='title'>Topics</label>
-            <input type='text' name='topics' {...register('topics')} placeholder='Enter topics separated by commas' />
+          <Stack gutter="sm">
+            <label htmlFor="title">Topics</label>
+            <input
+              type="text"
+              name="topics"
+              {...register('topics')}
+              placeholder="Enter topics separated by commas"
+            />
             <p>{errors.title?.message}</p>
           </Stack>
-          <Stack gutter='sm'>
-            <label htmlFor='postBody'>Body</label>
-            <textarea name='postBody' {...register('postBody')} placeholder='Enter your post' rows='6' />
+          <Stack gutter="sm">
+            <label htmlFor="postBody">Body</label>
+            <textarea
+              name="postBody"
+              {...register('postBody')}
+              placeholder="Enter your post"
+              rows="6"
+            />
             <p>{errors.postBody?.message}</p>
           </Stack>
-          <button type='submit'>Submit</button>
+          <button type="submit">Submit</button>
         </Stack>
       </form>
     </PostFormContainer>
