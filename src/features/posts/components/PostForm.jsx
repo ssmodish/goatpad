@@ -8,7 +8,9 @@ import { postFormSchema } from './postFormSchema'
 
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 import { db } from '../../../config/firebase.ts'
-import { useAuthContext } from '../../../hooks/useAuthContext'
+
+import { useSelector } from 'react-redux'
+
 import { useCollection } from '../../../hooks/useCollection'
 import { Stack } from '../../../components/styles/Stack.styled'
 
@@ -36,7 +38,7 @@ const PostForm = () => {
     resolver: yupResolver(postFormSchema),
   })
 
-  const { user } = useAuthContext()
+  const user = useSelector((state) => state.auth.currentUser)
   const navigate = useNavigate()
 
   const onSubmit = async (data, e) => {
