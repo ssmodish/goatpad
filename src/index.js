@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
-import { AuthContextProvider } from './stores/AuthContext'
-import { PostContextProvider } from './stores/Posts/PostContext'
+import { AuthContextProvider } from './stores/auth/AuthContext'
+import { PostContextProvider } from './stores/posts/PostContext'
 
 import './index.css'
 
