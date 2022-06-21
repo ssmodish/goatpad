@@ -4,8 +4,6 @@ import styled from 'styled-components'
 import { useLogout } from '../hooks/useLogout'
 import { useSelector } from 'react-redux'
 
-// import { useAuthContext } from '../hooks/useAuthContext'
-
 const NavbarContainer = styled.div`
   grid-column: span 3;
   width: 100vw;
@@ -42,7 +40,7 @@ const NavbarButtonContainer = styled.div`
 `
 
 const Navbar = () => {
-  const user = useSelector((state) => state.auth.currentUser)
+  const user = useSelector((state) => state.auth.user)
   const { logout } = useLogout()
 
   return (

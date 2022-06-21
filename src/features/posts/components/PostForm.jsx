@@ -38,7 +38,7 @@ const PostForm = () => {
     resolver: yupResolver(postFormSchema),
   })
 
-  const user = useSelector((state) => state.auth.currentUser)
+  const user = useSelector((state) => state.auth.user)
   const navigate = useNavigate()
 
   const onSubmit = async (data, e) => {

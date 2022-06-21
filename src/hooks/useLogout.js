@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
-import { auth } from '../config/firebase.ts'
-import { signOut } from 'firebase/auth'
+import { auth, signOut } from '../config/firebase.ts'
 
 export const useLogout = () => {
   const [isCancelled, setIsCancelled] = useState(false)

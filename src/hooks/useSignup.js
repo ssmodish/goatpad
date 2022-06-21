@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { auth } from '../config/firebase.ts'
+import {
+  auth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from '../config/firebase.ts'
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false)
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
-  const dispatch = useDispatch()
 
   const signup = async (email, password, displayName) => {
     setError(null)
@@ -21,8 +22,6 @@ export const useSignup = () => {
       }
 
       await updateProfile(res.user, { displayName })
-
-      dispatch({ type: 'LOGIN', payload: res.user })
 
       if (!isCancelled) {
         setIsPending(false)
