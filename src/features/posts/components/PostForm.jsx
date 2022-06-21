@@ -43,9 +43,12 @@ const PostForm = () => {
 
   const onSubmit = async (data, e) => {
     try {
-      const newTopics = data.topics.split(',').map((topic) => topic.trim())
+      const newTopics = data.topics
+        .split(',')
+        .map((topic) => topic.trim().toLowerCase())
       const allTopics = [user.displayName || user.email, ...newTopics]
-      const docRef = await addDoc(collection(db, 'posts'), {
+      const colRef = collection(db, 'posts')
+      const docRef = await addDoc(colRef, {
         ...data,
         topics: [...allTopics],
         uid: user.uid,

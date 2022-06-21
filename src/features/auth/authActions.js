@@ -9,6 +9,12 @@ export function signInUser(user) {
   }
 }
 
+export function signOutUser() {
+  return {
+    type: SIGN_OUT_USER,
+  }
+}
+
 export function verifyAuth() {
   return function (dispatch) {
     return onAuthStateChanged(auth, (user) => {
@@ -18,11 +24,5 @@ export function verifyAuth() {
         dispatch(signOutUser())
       }
     })
-  }
-}
-
-export function signOutUser() {
-  return {
-    type: SIGN_OUT_USER,
   }
 }

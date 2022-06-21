@@ -13,6 +13,8 @@ export const useLogin = () => {
 
     try {
       const res = await signInWithEmailAndPassword(auth, email, password)
+      const user = res.user
+      console.log(user)
 
       if (!res) {
         throw new Error('Could not login')
