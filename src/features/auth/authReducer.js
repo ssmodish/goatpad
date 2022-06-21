@@ -14,6 +14,8 @@ export default function authReducer(state = initialState, { type, payload }) {
         currentUser: {
           email: payload.email,
           photoURL: payload.photoURL || 'https://placekitten.com/200/200',
+          uid: payload.uid,
+          displayName: payload.displayName,
         },
       }
     case SIGN_OUT_USER:
