@@ -6,8 +6,15 @@ export const signUpSchema = yup.object({
     .trim()
     .required('Username is required')
     .min(4, 'Username must be at least 4 characters long'),
-  email: yup.string().email('Must be a valid email').required('Email is required'),
-  password: yup.string().required('Password is required').min(6, 'Password must be at least 6 characters long').max(64),
+  email: yup
+    .string()
+    .email('Must be a valid email')
+    .required('Email is required'),
+  password: yup
+    .string()
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long')
+    .max(64),
   password2: yup
     .string()
     .required('Confirmation Password is required')

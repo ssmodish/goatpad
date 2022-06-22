@@ -11,8 +11,11 @@ const Post = ({ postData }) => {
   const postedAt = timestamp?.toDate().toString() || null
 
   return (
-    <Stack gutter='xs'>
+    <Stack gutter="xs">
       <PostCard>
+        <h3>{title}</h3>
+        <p>{post || postBody}</p>
+        {postedAt && <p>Posted at: {postedAt}</p>}
         {topics ? (
           <TopicBar>
             {topics.map((topic) => (
@@ -20,9 +23,6 @@ const Post = ({ postData }) => {
             ))}
           </TopicBar>
         ) : null}
-        <h3>{title}</h3>
-        <p>{post || postBody}</p>
-        {postedAt && <p>Posted at: {postedAt}</p>}
       </PostCard>
     </Stack>
   )

@@ -1,13 +1,13 @@
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 import { auth } from '../config/firebase.ts'
-import { useAuthContext } from './useAuthContext'
 
 export const useSignup = () => {
   const [isCancelled, setIsCancelled] = useState(false)
   const [error, setError] = useState(null)
   const [isPending, setIsPending] = useState(false)
-  const { dispatch } = useAuthContext()
+  const dispatch = useDispatch()
 
   const signup = async (email, password, displayName) => {
     setError(null)
