@@ -2,7 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { useLogout } from '../hooks/useLogout'
-import { useAuthContext } from '../hooks/useAuthContext'
+import { useSelector } from 'react-redux'
+
+// import { useAuthContext } from '../hooks/useAuthContext'
 
 const NavbarContainer = styled.div`
   grid-column: span 3;
@@ -40,8 +42,8 @@ const NavbarButtonContainer = styled.div`
 `
 
 const Navbar = () => {
+  const user = useSelector((state) => state.auth.currentUser)
   const { logout } = useLogout()
-  const { user } = useAuthContext()
 
   return (
     <NavbarContainer>
