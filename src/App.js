@@ -15,10 +15,11 @@ import Layout from './components/Layout'
 import Topics from './components/Topics'
 import PostForm from './features/posts/components/PostForm'
 
-import { useAuthContext } from './hooks/useAuthContext'
+// import { useAuthContext } from './hooks/useAuthContext'
+import { useSelector } from 'react-redux'
 
 function App() {
-  const { user } = useAuthContext()
+  const { authenticated } = useSelector((state) => state.auth)
 
   return (
     <Layout>
@@ -26,16 +27,16 @@ function App() {
       <Topics />
 
       <Routes>
-        <Route path='/' element={<Posts />} />
+        <Route path="/" element={<Posts />} />
         {/* <Route path='/:postId' element={<Posts />} /> */}
 
-        <Route path='/topic/:topic' element={<FilteredPosts />} />
-        <Route path='/signup' element={<Signup />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/about' element={<About />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path="/topic/:topic" element={<FilteredPosts />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
-      {user ? <PostForm /> : <div>Need a User</div>}
+      {authenticated ? <PostForm /> : <div>Need a User</div>}
       <Footer />
     </Layout>
   )

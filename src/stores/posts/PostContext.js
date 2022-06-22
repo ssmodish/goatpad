@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useReducer } from 'react'
-// import { collection, getDocs } from 'firebase/firestore'
 
 import {
   getAllPosts,

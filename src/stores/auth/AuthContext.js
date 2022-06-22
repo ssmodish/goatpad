@@ -1,7 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth'
 import React, { createContext, useReducer, useEffect } from 'react'
 
-import { auth } from '../config/firebase.ts'
+import { auth } from '../../config/firebase.ts'
 
 export const AuthContext = createContext()
 
@@ -31,5 +31,9 @@ export const AuthContextProvider = ({ children }) => {
     })
   }, [])
 
-  return <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ ...state, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
