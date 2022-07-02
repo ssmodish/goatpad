@@ -1,30 +1,35 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+import { deletePost, updatePost } from '../postsSlice'
 
-import { Stack } from '../../../components/styles/Stack.styled'
-import { Tag } from './styles/Tag.styled'
-import { TopicBar } from './styles/TopicBar.styled'
-import { PostCard } from './styles/PostCard.styled'
+const Post = ({ title, id, topics, postBody }) => {
+  const dispatch = useDispatch()
 
-const Post = ({ postData }) => {
-  const { title, topics, post, postBody, timestamp } = postData
+  const deleteItem = () => {
+    dispatch(deletePost(id))
+  }
 
-  const postedAt = timestamp?.toDate().toString() || null
+  const updateItem = () => {
+    dispatch(
+      updatePost({
+        id: id,
+        changes: {
+          title: 'Updated Title',
+          topics: [...topics, 'UPDATED POSTS'],
+          postBody: 'THIS POST WAS DEFINITELY UPDATED',
+        },
+      })
+    )
+  }
 
   return (
-    <Stack gutter="xs">
-      <PostCard>
-        <h3>{title}</h3>
-        <p>{post || postBody}</p>
-        {postedAt && <p>Posted at: {postedAt}</p>}
-        {topics ? (
-          <TopicBar>
-            {topics.map((topic) => (
-              <Tag key={topic}>{topic}</Tag>
-            ))}
-          </TopicBar>
-        ) : null}
-      </PostCard>
-    </Stack>
+    <div className="post" key={id}>
+      <h3>{title}</h3>
+      <p>{topics.join(', ')}</p>
+      <p>{postBody}</p>
+      <button onClick={updateItem}>Update</button>
+      <button onClick={deleteItem}>Delete</button>
+    </div>
   )
 }
 

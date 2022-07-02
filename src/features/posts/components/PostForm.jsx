@@ -1,18 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { useNavigate } from 'react-router'
+// import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { postFormSchema } from './postFormSchema'
 
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-import { db } from '../../../config/firebase.ts'
+// import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+// import { db } from '../../../config/firebase.ts'
+// import { useCollection } from '../../../hooks/useCollection'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { useCollection } from '../../../hooks/useCollection'
 import { Stack } from '../../../components/styles/Stack.styled'
+import { addPost } from '../postsSlice'
+import { nanoid } from '@reduxjs/toolkit'
 
 const PostFormContainer = styled.div`
   padding: 30px;
@@ -25,6 +27,7 @@ const PostFormContainer = styled.div`
 `
 
 const PostForm = () => {
+  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -39,39 +42,50 @@ const PostForm = () => {
   })
 
   const user = useSelector((state) => state.auth.user)
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
-  const onSubmit = async (data, e) => {
-    try {
-      const newTopics = data.topics
-        .split(',')
-        .map((topic) => topic.trim().toLowerCase())
-      const allTopics = [user.displayName || user.email, ...newTopics]
-      const colRef = collection(db, 'posts')
-      const docRef = await addDoc(colRef, {
-        ...data,
-        topics: [...allTopics],
-        uid: user.uid,
-        timestamp: serverTimestamp(),
-      })
-      console.log('Document written with ID: ', docRef.id)
+  const onSubmit = (data) => {
+    const newTopics = data.topics
+      .split(',')
+      .map((topic) => topic.trim().toLowerCase())
+    const allTopics = [user.displayName || user.email, ...newTopics]
 
-      const { topics } = await useCollection('topics')
-
-      console.log(topics)
-
-      // const topicRef = await addDoc(collection(db, 'topics'), {
-      //   ...data,
-      //   allTopics: { ...topics, ...newTopics },
-      // })
-
-      e.target.reset()
-    } catch (err) {
-      console.error('Error adding document: ', err)
-    }
-
-    navigate('/')
+    dispatch(
+      addPost({ ...data, uid: user.uid, topics: [...allTopics], id: nanoid() })
+    )
   }
+
+  // const onSubmit = async (data, e) => {
+  //   try {
+  //     const newTopics = data.topics
+  //       .split(',')
+  //       .map((topic) => topic.trim().toLowerCase())
+  //     const allTopics = [user.displayName || user.email, ...newTopics]
+  //     const colRef = collection(db, 'posts')
+  //     const docRef = await addDoc(colRef, {
+  //       ...data,
+  //       topics: [...allTopics],
+  //       uid: user.uid,
+  //       timestamp: serverTimestamp(),
+  //     })
+  //     console.log('Document written with ID: ', docRef.id)
+
+  //     const { topics } = await useCollection('topics')
+
+  //     console.log(topics)
+
+  //     // const topicRef = await addDoc(collection(db, 'topics'), {
+  //     //   ...data,
+  //     //   allTopics: { ...topics, ...newTopics },
+  //     // })
+
+  //     e.target.reset()
+  //   } catch (err) {
+  //     console.error('Error adding document: ', err)
+  //   }
+
+  //   navigate('/')
+  // }
 
   return (
     <PostFormContainer>
