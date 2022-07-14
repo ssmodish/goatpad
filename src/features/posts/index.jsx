@@ -1,4 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { setPosts } from './postsSlice'
+
 import styled from 'styled-components'
 
 import PostList from './components/PostList'
@@ -19,6 +23,12 @@ const PostsContainer = styled.div`
 `
 
 const Posts = () => {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setPosts())
+  }, [dispatch])
+
   return (
     <PostsContainer>
       <h1>Posts</h1>

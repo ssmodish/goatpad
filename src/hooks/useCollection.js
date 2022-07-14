@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore'
 
 export const useCollection = (c, _query, _orderBy) => {
+  // local state should be used by or replaced by redux
   const [documents, setDocuments] = useState(null)
 
   const queryParams = useRef(_query).current

@@ -1,21 +1,46 @@
-import { createSlice, createEntityAdapter } from '@reduxjs/toolkit'
-// import { collection, query, onSnapshot, orderBy } from 'firebase/firestore'
-// import { sortBy } from 'lodash'
-// import db from '../../config/firebase'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
-export const postsAdapter = createEntityAdapter()
-export const postsSelectors = postsAdapter.getSelectors((state) => state.posts)
+import { getDocuments } from '../../utils/firestoreService'
 
-const postsSlice = createSlice({
+const initialState = {
+  posts: null,
+  currentPost: null,
+  status: 'idle',
+}
+
+export const setPosts = createAsyncThunk('posts/setPosts', async () => {
+  const response = await getDocuments('posts')
+  return response
+})
+
+export const postsSlice = createSlice({
   name: 'posts',
-  initialState: postsAdapter.getInitialState(),
+  initialState,
   reducers: {
-    addPost: postsAdapter.addOne,
-    deletePost: postsAdapter.removeOne,
-    updatePost: postsAdapter.updateOne,
+    setCurrentPost: (state, action) => {
+      state.currentPost = action.payload
+    },
+    clearCurrentPost: (state) => {
+      state.currentPost = null
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(setPosts.fulfilled, (state, action) => {
+      state.posts = action.payload
+      state.status = 'succeeded'
+    })
+    builder.addCase(setPosts.pending, (state) => {
+      state.status = 'pending'
+    })
+    builder.addCase(setPosts.rejected, (state) => {
+      state.status = 'failed'
+    })
   },
 })
 
-export const { addPost, deletePost, updatePost } = postsSlice.actions
+export const { setCurrentPost, clearCurrentPost } = postsSlice.actions
+
+// export const selectPostsArray = (state) => state.posts.posts
+// export const selectPostsStatus = (state) => state.posts.status
 
 export default postsSlice.reducer

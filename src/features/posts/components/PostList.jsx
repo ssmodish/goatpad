@@ -1,35 +1,31 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { postsSelectors } from '../postsSlice'
+// import { selectPostsArray, selectPostsStatus } from '../postsSlice'
 
 import Post from './Post'
 
 const PostList = () => {
-  // const dispatch = useDispatch()
-  const allPosts = useSelector(postsSelectors.selectEntities)
+  const postsArray = useSelector((state) => state.posts.posts)
+  const postsStatus = useSelector((state) => state.posts.status)
 
-  const postsList = []
+  console.log(postsArray)
+  console.log(postsStatus)
 
-  for (const id in allPosts) {
-    if (Object.hasOwnProperty.call(allPosts, id)) {
-      const postItem = allPosts[id]
-
-      postsList.push(
-        <Post
-          key={postItem.id}
-          id={postItem.id}
-          title={postItem.title}
-          topics={postItem.topics}
-          postBody={postItem.postBody}
-        />
-      )
-    }
+  if (postsStatus.status === 'pending' || postsStatus.status === 'idle') {
+    return <h1>LOADING...</h1>
   }
+
+  if (postsStatus.status === 'rejected') {
+    return <h1>SOMETHING WENT WRONG!</h1>
+  }
+
   return (
-    <div>
-      <h3>Posts</h3>
-      {postsList}
-    </div>
+    <>
+      <h1>PostList</h1>
+      {postsArray?.map((post) => (
+        <Post key={post.id} post={post} />
+      ))}
+    </>
   )
 }
 

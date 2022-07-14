@@ -1,20 +1,14 @@
 import React from 'react'
-import styled from 'styled-components'
 
-// import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { postFormSchema } from './postFormSchema'
 
-// import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
-// import { db } from '../../../config/firebase.ts'
-// import { useCollection } from '../../../hooks/useCollection'
+import { addDocument } from '../../../utils/firestoreService'
 
-import { useSelector, useDispatch } from 'react-redux'
-
+import styled from 'styled-components'
 import { Stack } from '../../../components/styles/Stack.styled'
-import { addPost } from '../postsSlice'
-import { nanoid } from '@reduxjs/toolkit'
 
 const PostFormContainer = styled.div`
   padding: 30px;
@@ -27,7 +21,6 @@ const PostFormContainer = styled.div`
 `
 
 const PostForm = () => {
-  const dispatch = useDispatch()
   const {
     register,
     handleSubmit,
@@ -41,51 +34,16 @@ const PostForm = () => {
     resolver: yupResolver(postFormSchema),
   })
 
-  const user = useSelector((state) => state.auth.user)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
 
   const onSubmit = (data) => {
-    const newTopics = data.topics
-      .split(',')
-      .map((topic) => topic.trim().toLowerCase())
-    const allTopics = [user.displayName || user.email, ...newTopics]
-
-    dispatch(
-      addPost({ ...data, uid: user.uid, topics: [...allTopics], id: nanoid() })
-    )
+    try {
+      addDocument('posts', data)
+    } catch (error) {
+      console.log(error)
+    }
+    navigate('/')
   }
-
-  // const onSubmit = async (data, e) => {
-  //   try {
-  //     const newTopics = data.topics
-  //       .split(',')
-  //       .map((topic) => topic.trim().toLowerCase())
-  //     const allTopics = [user.displayName || user.email, ...newTopics]
-  //     const colRef = collection(db, 'posts')
-  //     const docRef = await addDoc(colRef, {
-  //       ...data,
-  //       topics: [...allTopics],
-  //       uid: user.uid,
-  //       timestamp: serverTimestamp(),
-  //     })
-  //     console.log('Document written with ID: ', docRef.id)
-
-  //     const { topics } = await useCollection('topics')
-
-  //     console.log(topics)
-
-  //     // const topicRef = await addDoc(collection(db, 'topics'), {
-  //     //   ...data,
-  //     //   allTopics: { ...topics, ...newTopics },
-  //     // })
-
-  //     e.target.reset()
-  //   } catch (err) {
-  //     console.error('Error adding document: ', err)
-  //   }
-
-  //   navigate('/')
-  // }
 
   return (
     <PostFormContainer>
